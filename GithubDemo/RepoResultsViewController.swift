@@ -7,17 +7,17 @@
 //
 
 import UIKit
+import Foundation
 import MBProgressHUD
 
 // Main ViewController
 class RepoResultsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
     
     @IBOutlet weak var tableView: UITableView!
     
     var searchBar: UISearchBar!
     var searchSettings = GithubRepoSearchSettings()
-    var repos: [GithubRepo]!
+    var repos: [GithubRepo]! = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +37,6 @@ class RepoResultsViewController: UIViewController, UITableViewDelegate, UITableV
 
         // Perform the first search when the view controller first loads
         doSearch()
-        tableView.reloadData()
     }
 
     // Perform the search.
@@ -51,9 +50,11 @@ class RepoResultsViewController: UIViewController, UITableViewDelegate, UITableV
             // Print the returned repositories to the output window
             for repo in newRepos {
                 print(repo)
-                //self.repos.append(repo)
+                self.repos.append(repo)
+                print("Repos count: \(self.repos.count)")
             }   
-
+            
+            self.tableView.reloadData()
             MBProgressHUD.hide(for: self.view, animated: true)
             }, error: { (error) -> Void in
                 print(error ?? "error")
@@ -61,11 +62,26 @@ class RepoResultsViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+//        print("Repos count: \(repos.count)")
+        return repos.count
+//        return 10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GithubCell") as! GithubCell
+        
+        if repos.count > 0 {
+            let repo = repos[indexPath.row]
+            let imageUrl = URL(string: repo.ownerAvatarURL!)
+            cell.repoName.text = repo.name
+            cell.repoOwner.text = "by " + repo.ownerHandle!
+            cell.repoDesc.text = repo.repoDescription
+            if let stars = repo.stars, let forks = repo.forks {
+                cell.repoStars.text = String(describing: stars)
+                cell.repoForks.text = String(describing: forks)
+            }
+            cell.avatarImageView.setImageWith(imageUrl!)
+        }
         return cell
     }
 }
