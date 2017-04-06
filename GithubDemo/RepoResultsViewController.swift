@@ -10,16 +10,23 @@ import UIKit
 import MBProgressHUD
 
 // Main ViewController
-class RepoResultsViewController: UIViewController {
+class RepoResultsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     var searchBar: UISearchBar!
     var searchSettings = GithubRepoSearchSettings()
-
     var repos: [GithubRepo]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.estimatedRowHeight = 60
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
         // Initialize the UISearchBar
         searchBar = UISearchBar()
         searchBar.delegate = self
@@ -30,6 +37,7 @@ class RepoResultsViewController: UIViewController {
 
         // Perform the first search when the view controller first loads
         doSearch()
+        tableView.reloadData()
     }
 
     // Perform the search.
@@ -43,6 +51,7 @@ class RepoResultsViewController: UIViewController {
             // Print the returned repositories to the output window
             for repo in newRepos {
                 print(repo)
+                self.repos.append(repo)
             }   
 
             MBProgressHUD.hide(for: self.view, animated: true)
@@ -50,7 +59,17 @@ class RepoResultsViewController: UIViewController {
                 print(error)
         })
     }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return repos.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "GithubCell") as! GithubCell
+        return cell
+    }
 }
+
 
 // SearchBar methods
 extension RepoResultsViewController: UISearchBarDelegate {
