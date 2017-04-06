@@ -51,17 +51,17 @@ class RepoResultsViewController: UIViewController, UITableViewDelegate, UITableV
             // Print the returned repositories to the output window
             for repo in newRepos {
                 print(repo)
-                self.repos.append(repo)
+                //self.repos.append(repo)
             }   
 
             MBProgressHUD.hide(for: self.view, animated: true)
             }, error: { (error) -> Void in
-                print(error)
+                print(error ?? "error")
         })
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return repos.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -34,7 +34,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vdd-lt-4ed">
-                                                    <rect key="frame" x="8" y="79.5" width="294" height="69"/>
+                                                    <rect key="frame" x="8" y="80" width="71" height="69"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="71" id="GQh-Gd-Men"/>
+                                                        <constraint firstAttribute="height" constant="69" id="p3U-tF-ZWJ"/>
+                                                    </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hMi-fY-JZg">
                                                     <rect key="frame" x="8" y="8" width="42" height="21"/>
@@ -67,7 +71,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hsc-4I-Dn7">
-                                                    <rect key="frame" x="325" y="81" width="42" height="30.5"/>
+                                                    <rect key="frame" x="102" y="81" width="265" height="30.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -100,6 +104,9 @@
                                                 <constraint firstItem="hsc-4I-Dn7" firstAttribute="top" secondItem="cRQ-Ym-gTB" secondAttribute="bottom" constant="51" id="xJ5-rF-hlH"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="avatarImageView" destination="Vdd-lt-4ed" id="MRR-Nx-Fym"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

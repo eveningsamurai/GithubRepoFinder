@@ -10,6 +10,8 @@ import UIKit
 
 class GithubCell: UITableViewCell {
 
+    @IBOutlet weak var avatarImageView: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
